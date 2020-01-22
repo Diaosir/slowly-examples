@@ -1,12 +1,12 @@
 import { Controller } from 'slowly'
 import { Option, Description, Before } from 'slowly/decorator'
 import inquirer from '../middleware/inquirer'
+import dependOnCommands from '../middleware/dependOnCommnads'
 var BottomBar = require('inquirer/lib/ui/bottom-bar');
-var cmdify = require('cmdify');
 export default class InitController extends Controller {
   @Description('1111')
   @Option('-t, --typescript', 'is typescript')
-  @Before([inquirer([
+  @Before([dependOnCommands(['tsc']),inquirer([
    {
         type: 'input',
         message: 'input your commander name',
@@ -23,14 +23,8 @@ export default class InitController extends Controller {
     setInterval(() => {
       ui.updateBottomBar(loader[i++ % 4]);
     }, 300);
-    await github.getTemplate(name,'lib');
-
-    var spawn = require('child_process').spawn;
-    var cmd = spawn(cmdify('npm'), ['install'], { stdio: 'pipe', });
-    cmd.stdout.pipe(ui.log);
-    cmd.on('close', () => {
-      ui.updateBottomBar('Installation done!\n');
-      process.exit();
-    });
+    await github.getTemplate(name, 'ts');
+    ui.updateBottomBar(`Installation done!\ncd ${name} & npm install & npm start`);
+    process.exit();
   }
 }

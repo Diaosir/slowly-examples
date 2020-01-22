@@ -19,7 +19,6 @@ rl.on('line', function (line) {
     }
     rl.prompt();
 });
-rl.on('');
 rl.on('close', function () {
     console.log('bye bye!');
     process.exit(0);

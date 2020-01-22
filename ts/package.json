@@ -4,11 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest  --watchAll --coverage",
+    "test": "jest  --watchAll",
     "dev": "tsc -w"
   },
   "bin": {
-    "my-git": "./dist/index.js"
+    "my-git": "./index.js"
   },
   "license": "ISC",
   "devDependencies": {
@@ -17,9 +17,10 @@
     "babel-jest": "^24.8.0",
     "jest": "^24.8.0",
     "ts-jest": "^24.0.2",
-    "typescript": "^3.5.3"
+    "ts-node": "^8.6.2",
+    "typescript": "^3.7.5"
   },
   "dependencies": {
-    "slowly": "^1.2.0"
+    "slowly": "^1.2.1"
   }
 }

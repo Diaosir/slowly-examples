@@ -21,7 +21,6 @@ var readline = require('readline');
 	    }
 	    rl.prompt();
 	});
-	rl.on('')
 	rl.on('close', function() {
 	    console.log('bye bye!');
       process.exit(0);

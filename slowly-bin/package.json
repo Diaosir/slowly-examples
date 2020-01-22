@@ -1,16 +1,16 @@
 {
-  "name": "slowly-init",
+  "name": "slowly-bin",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "jest  --watchAll --coverage",
-    "dev": "tsc -w"
+    "dev": "tsc -w",
+    "prepublishOnly": "npx ts-node ./index.ts build"
   },
   "bin": {
-    "slowly-init": "./dist/index.js"
+    "slowly-bin": "./dist/index.js"
   },
-  "author": "Diaosir",
   "license": "ISC",
   "devDependencies": {
     "@types/jest": "^24.0.15",
@@ -18,16 +18,14 @@
     "babel-jest": "^24.8.0",
     "jest": "^24.8.0",
     "ts-jest": "^24.0.2",
-    "typescript": "^3.5.3"
+    "ts-node": "^8.6.2",
+    "typescript": "^3.7.5"
   },
   "dependencies": {
-    "chalk": "^3.0.0",
     "cmdify": "^0.0.4",
-    "download": "^7.1.0",
     "fs-extra": "^8.1.0",
-    "glob": "^7.1.6",
-    "inquirer": "^7.0.3",
-    "output-file-sync": "^2.0.1",
-    "slowly": "^1.2.1"
+    "json-beautify": "^1.1.1",
+    "slowly": "^1.2.1",
+    "standard-version": "^7.1.0"
   }
 }

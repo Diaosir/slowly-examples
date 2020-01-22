@@ -16,8 +16,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const slowly_1 = require("slowly");
 const decorator_1 = require("slowly/decorator");
 const inquirer_1 = require("../middleware/inquirer");
+const dependOnCommnads_1 = require("../middleware/dependOnCommnads");
 var BottomBar = require('inquirer/lib/ui/bottom-bar');
-var cmdify = require('cmdify');
 class InitController extends slowly_1.Controller {
     index() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -29,21 +29,16 @@ class InitController extends slowly_1.Controller {
             setInterval(() => {
                 ui.updateBottomBar(loader[i++ % 4]);
             }, 300);
-            yield github.getTemplate(name, 'lib');
-            var spawn = require('child_process').spawn;
-            var cmd = spawn(cmdify('npm'), ['install'], { stdio: 'pipe', });
-            cmd.stdout.pipe(ui.log);
-            cmd.on('close', () => {
-                ui.updateBottomBar('Installation done!\n');
-                process.exit();
-            });
+            yield github.getTemplate(name, 'ts');
+            ui.updateBottomBar(`Installation done!\ncd ${name} & npm install & npm start`);
+            process.exit();
         });
     }
 }
 __decorate([
     decorator_1.Description('1111'),
     decorator_1.Option('-t, --typescript', 'is typescript'),
-    decorator_1.Before([inquirer_1.default([
+    decorator_1.Before([dependOnCommnads_1.default(['tsc']), inquirer_1.default([
             {
                 type: 'input',
                 message: 'input your commander name',

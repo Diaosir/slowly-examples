@@ -20,9 +20,9 @@ class GithubService extends slowly_1.Service {
         super(...arguments);
         this.localFileSystem = new memfs_1.default();
         this._gitDest = 'template-dist';
-        this._gitUrl = 'https://github.com/Diaosir/slowly/archive/master.zip';
+        this._gitUrl = 'https://github.com/Diaosir/slowly-examples/archive/master.zip';
     }
-    downloadGitRepo(template) {
+    downloadGitRepo() {
         return __awaiter(this, void 0, void 0, function* () {
             yield new Promise((resolve, reject) => {
                 downloadUrl(this._gitUrl, this._gitDest, {
@@ -36,11 +36,9 @@ class GithubService extends slowly_1.Service {
                     const list = glob.sync(`${this._gitDest}/**/*`, { dot: true });
                     yield Promise.all(list.map((filename) => __awaiter(this, void 0, void 0, function* () {
                         const stat = fse.statSync(filename);
-                        const uri = uri_1.URI.parse(`loaclFs:${filename.replace(this._gitDest, '')}`);
-                        if (stat.isDirectory()) {
-                            yield this.localFileSystem.mkdir(uri);
-                        }
-                        else {
+                        const relativeName = filename.replace(this._gitDest, '');
+                        const uri = uri_1.URI.parse(`loaclFs:${relativeName}`);
+                        if (!stat.isDirectory()) {
                             yield this.localFileSystem.writeFileAnyway(uri, fse.readFileSync(filename, { encoding: 'utf-8' }));
                         }
                     })));
@@ -55,19 +53,14 @@ class GithubService extends slowly_1.Service {
     }
     getTemplate(dest, template) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield this.downloadGitRepo(template);
+            yield this.downloadGitRepo();
             const stat = yield this.localFileSystem.stat(uri_1.URI.parse(`loaclFs:${template}`));
-            this._createFileToLocalFileSystem(dest, stat);
-        });
-    }
-    _createFileToLocalFileSystem(dest, entry) {
-        return __awaiter(this, void 0, void 0, function* () {
             fse.removeSync(dest);
-            this.localFileSystem.walk(entry, (file, filename, isDirecttory) => __awaiter(this, void 0, void 0, function* () {
+            this.localFileSystem.walk(stat, (file, filename, isDirecttory) => __awaiter(this, void 0, void 0, function* () {
                 if (isDirecttory) {
                     return;
                 }
-                outputFileSync(path.join(dest, filename), file.data, 'utf-8');
+                outputFileSync(path.join(dest, filename.replace(new RegExp(`^${template}`), '')), file.data, 'utf-8');
             }));
         });
     }

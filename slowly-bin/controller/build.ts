@@ -6,7 +6,7 @@ const beautify = require("json-beautify");
 var cmdify = require('cmdify');
 const fse = require('fs-extra')
 export default class Build extends Controller {
-  @Description('build dist')
+  // @Description('build dist')
   async index() {
     const tsconfig = require(path.join(process.cwd(), 'tsconfig.json'))
     // fse.removeSync(path.join(process.cwd(), 'dist'));

@@ -2,7 +2,7 @@ import { Controller } from 'slowly'
 import { Option, Description, Before } from 'slowly/decorator'
 var cmdify = require('cmdify');
 export default class PrePublish extends Controller {
-  @Description('prepublish')
+  // @Description('prepublish')
   async index() {
     var spawn = require('child_process').spawn;
     console.log(process.cwd())

@@ -2,7 +2,7 @@ import { Controller } from 'slowly'
 import { Option, Description, Before } from 'slowly/decorator'
 var cmdify = require('cmdify');
 export default class Build extends Controller {
-  @Description('publish')
+  // @Description('publish')
   async index() {
     var spawn = require('child_process').spawn;
     var cmd = spawn(cmdify('npx'), ['typescript', '-d', '-w', 'false'], { cwd: process.cwd()});

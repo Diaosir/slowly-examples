@@ -20,10 +20,20 @@ class InitController extends slowly_1.Controller {
     index() {
         return __awaiter(this, void 0, void 0, function* () {
             console.log(1111);
+            console.log(this.ctx.query);
+        });
+    }
+    test() {
+        return __awaiter(this, void 0, void 0, function* () {
         });
     }
 }
 __decorate([
-    decorator_1.Description('init')
+    decorator_1.Description('init'),
+    decorator_1.Option('[packages...]', 'dependencies'),
+    decorator_1.Option('-d --dev [dev]', 'save dev')
 ], InitController.prototype, "index", null);
+__decorate([
+    decorator_1.Description('init test')
+], InitController.prototype, "test", null);
 exports.default = InitController;
